@@ -6,6 +6,11 @@ require 'active_support/core_ext/hash/slice'
 require File.expand_path('../../lib/rack/google-analytics', __FILE__)
 require File.expand_path('../../lib/tracking/event', __FILE__)
 
+# legacy
+require File.expand_path('../../lib/legacy/rack/google-analytics', __FILE__)
+require File.expand_path('../../lib/legacy/tracking/custom_var', __FILE__)
+require File.expand_path('../../lib/legacy/tracking/event', __FILE__)
+
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
@@ -44,6 +49,15 @@ class Test::Unit::TestCase
 
     builder = Rack::Builder.new
     builder.use Rack::GoogleAnalytics, options
+    builder.run main_app(app_options)
+    @app = builder.to_app
+  end
+
+  def mock_app_legacy(options)
+    app_options = options.slice(:events, :custom_vars, :misc)
+
+    builder = Rack::Builder.new
+    builder.use Rack::GoogleAnalytics::Legacy, options
     builder.run main_app(app_options)
     @app = builder.to_app
   end
