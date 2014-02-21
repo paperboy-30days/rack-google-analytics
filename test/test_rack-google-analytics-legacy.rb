@@ -95,8 +95,8 @@ class TestRackGoogleAnalyticsLegacy < Test::Unit::TestCase
       end
     end
 
-    context "with in-page page id" do
-      setup { mock_app_legacy :async => true, :tracker => 'happy', :inpage_pageid => true }
+    context "with enchanced link attribution" do
+      setup { mock_app_legacy :async => true, :tracker => 'happy', :enhanced_link_attribution => true }
       should "embedded plugin script" do
         get "/"
         assert_match %r{inpage_linkid.js}, last_response.body
