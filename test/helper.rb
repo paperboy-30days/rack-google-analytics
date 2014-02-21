@@ -7,9 +7,9 @@ require File.expand_path('../../lib/rack/google-analytics', __FILE__)
 require File.expand_path('../../lib/tracking/event', __FILE__)
 
 # legacy
-require File.expand_path('../../lib/legacy/rack/google-analytics', __FILE__)
-require File.expand_path('../../lib/legacy/tracking/custom_var', __FILE__)
-require File.expand_path('../../lib/legacy/tracking/event', __FILE__)
+require File.expand_path('../../lib/rack/google-analytics/legacy/google-analytics', __FILE__)
+require File.expand_path('../../lib/tracking/legacy/custom_var', __FILE__)
+require File.expand_path('../../lib/tracking/legacy/event', __FILE__)
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
