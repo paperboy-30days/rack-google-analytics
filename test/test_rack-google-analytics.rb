@@ -7,6 +7,7 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
       setup { mock_app tracker: 'somebody' }
       should "show asyncronous tracker" do
         get "/"
+
         assert_match %r{ga\('create', 'somebody', {}\)}, last_response.body
         assert_match %r{ga\('send', 'pageview'\)}, last_response.body
 
@@ -43,6 +44,14 @@ class TestRackGoogleAnalytics < Test::Unit::TestCase
         assert_match %r{</script></head>}, last_response.body
       end
 
+    end
+
+    context "with advertising" do
+      setup { mock_app tracker: 'happy', advertising: true }
+      should "require displayfeatures" do
+        get "/"
+        assert_match %r{ga\('require', 'displayfeatures'\)}, last_response.body
+      end
     end
 
     context "with enhanced_link_attribution" do
